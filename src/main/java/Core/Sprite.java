@@ -1,6 +1,6 @@
 package Core;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Sprite {
@@ -29,7 +29,6 @@ public class Sprite {
 		this.texture = texture;
 	}
 	void init() {}
-	
 	BufferedImage getImg() {
 		return texture.texture;
 	}

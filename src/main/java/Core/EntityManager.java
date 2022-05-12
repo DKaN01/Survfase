@@ -31,7 +31,7 @@ public class EntityManager {
 	public void draw(Graphics2D g2) {
 		g2.drawImage(player.getImg(), (int)player.screenX, (int)player.screenY, 48,48,null);
 	}
-	public void update() {		
+	public void update() {
 		if(kh.moveUp) {
 			player.moveWorld(0, -0.5f*speed);
 		}
