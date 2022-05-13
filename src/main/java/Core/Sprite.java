@@ -8,6 +8,9 @@ public class Sprite {
 	public float worldX, worldY;
 	public Texture texture;
 	public Rectangle rect;
+	public Thread updaterFrame;
+	private int mirror = 1;
+	public int needMirror = 1;
 	
 	public Sprite(int screenX, int screenY, Texture texture) {
 		this.screenX = screenX;
@@ -29,9 +32,6 @@ public class Sprite {
 		this.texture = texture;
 	}
 	void init() {}
-	BufferedImage getImg() {
-		return texture.texture;
-	}
 	public void moveWorld(float x, float y) {
 		worldX += x;
 		worldY += y;
@@ -39,5 +39,28 @@ public class Sprite {
 	public void moveScreen(float x, float y) {
 		screenX += x;
 		screenY += y;
+	}
+	public BufferedImage getImage()
+	{
+		if(mirror > needMirror)return MirrorImage.MirrorImage(texture.getTexture());
+		if(mirror < needMirror)return MirrorImage.MirrorImage(texture.getTexture());
+		else return texture.getTexture();
+	}
+	public void startUpdaterFrame()
+	{
+		this.updaterFrame = new Thread(this::updater);
+		updaterFrame.start();
+	}
+	private void updater()
+	{
+		while(this != null)
+		{
+			texture.updateFrame();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

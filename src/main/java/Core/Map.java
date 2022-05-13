@@ -9,7 +9,7 @@ import java.io.IOException;
 public class Map {
 	Sprite[] types;
 	Sprite[][] tiles;
-	Sprite player;
+	Player player;
 	
 	final int maxBlockRow = 50;
 	final int maxBlockCol = 50;
@@ -18,14 +18,13 @@ public class Map {
 	public Map(TextureManager tm) {
 		tiles = new Sprite[maxBlockCol][maxBlockCol];
 		
-		types = new Sprite[4];
-		types[0] = new Sprite(tm.tree);
-		types[1] = new Sprite(tm.road);
-		types[2] = new Sprite(tm.tree);
-		types[3] = new Sprite(tm.water);
+		types = new Sprite[1];
+
+		types[0] = new Sprite(tm.wallMid);
+
 		init();
 	}
-	public void setPlayer(Sprite player) {
+	public void setPlayer(Player player) {
 		this.player = player;
 	}
 	void init() {
@@ -50,7 +49,7 @@ public class Map {
             while(worldCol < maxBlockCol) {
             	String[] numbers = line.split(" ");
                 int num = Integer.parseInt(numbers[worldCol]);
-                tiles[worldCol][worldRow] = types[num];
+				tiles[worldCol][worldRow] = types[num];
                 worldCol++;
                 System.out.println("Col: "+worldCol);
                 System.out.println("Row: "+worldRow);
@@ -76,7 +75,7 @@ public class Map {
 				int screenX = worldX - (int)player.worldX + (int)player.screenX;
 				int screenY = worldY - (int)player.worldY + (int)player.screenY;
 				
-				g2.drawImage(tiles[worldCol][worldRow].getImg(), screenX, screenY,blockSizeDefault,blockSizeDefault,null);
+				g2.drawImage(tiles[worldCol][worldRow].texture.getTexture(), screenX, screenY,blockSizeDefault,blockSizeDefault,null);
 				
 				
 				worldCol++;
