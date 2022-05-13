@@ -7,6 +7,7 @@ public class Keyhandler implements KeyListener{
 	public boolean moveUp, moveDown, moveLeft, moveRight;
 	public boolean debug = false;
 	public float playerSpeed = 1f;
+	public int Mashab;
 	
 	
 	public Keyhandler() {}
@@ -27,6 +28,8 @@ public class Keyhandler implements KeyListener{
 		if(code == KeyEvent.VK_NUMPAD0)debug = !debug;
 		if(code == KeyEvent.VK_NUMPAD9)playerSpeed++;
 		if(code == KeyEvent.VK_NUMPAD6)playerSpeed--;
+		if(code == KeyEvent.VK_NUMPAD5)Mashab++;
+		if(code == KeyEvent.VK_NUMPAD2)Mashab--;
 	}
 
 	@Override

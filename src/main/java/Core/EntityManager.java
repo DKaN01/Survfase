@@ -32,7 +32,7 @@ public class EntityManager {
 		player.startUpdaterFrame();
 	}
 	public void draw(Graphics2D g2) {
-		g2.drawImage(player.getImage(), player.screenX, player.screenY, 48,48,null);
+		g2.drawImage(player.getImage(), player.screenX, player.screenY, player.stop.width,player.stop.height,null);
 	}
 	public void update() {
 		player.update();

@@ -8,7 +8,7 @@ public class Player {
     Texture stop, run;
     boolean playerRunner = false;
     public float speed = 3f;
-    public float worldX = 1000, worldY = 1000;
+    public float worldX = 400, worldY = 400;
     public int screenX = (1280/2) - 24;
     public int screenY = (720/2) - 24;
     int mirror = 1;

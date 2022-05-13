@@ -10,18 +10,21 @@ public class Map {
 	Sprite[] types;
 	Sprite[][] tiles;
 	Player player;
+	Core core;
 	
-	final int maxBlockRow = 50;
-	final int maxBlockCol = 50;
-	final int blockSizeDefault = 64;
+	final int maxBlockRow = 150;
+	final int maxBlockCol = 150;
+	int blockSizeDefault = 128;
 	
-	public Map(TextureManager tm) {
+	public Map(TextureManager tm, Core core) {
+		this.core = core;
 		tiles = new Sprite[maxBlockCol][maxBlockCol];
 		
-		types = new Sprite[1];
+		types = new Sprite[2];
 
-		types[0] = new Sprite(tm.wallMid);
-
+		types[0] = new Sprite(tm.floor_1);
+		types[1] = new Sprite(tm.wallMid);
+		core.kh.Mashab = blockSizeDefault;
 		init();
 	}
 	public void setPlayer(Player player) {
@@ -39,20 +42,19 @@ public class Map {
 		int worldCol = 0;
 		int worldRow = 0;
 		while(worldCol < maxBlockCol && worldRow < maxBlockRow) {
-			String line = null;
-            try {
-                line = br.readLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//			String line = null;
+//            try {
+//                line = br.readLine();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
             
             while(worldCol < maxBlockCol) {
-            	String[] numbers = line.split(" ");
-                int num = Integer.parseInt(numbers[worldCol]);
+//            	String[] numbers = line.split(" ");
+//                int num = Integer.parseInt(numbers[worldCol]);
+				int num = 0;
 				tiles[worldCol][worldRow] = types[num];
                 worldCol++;
-                System.out.println("Col: "+worldCol);
-                System.out.println("Row: "+worldRow);
             }
 			if(worldCol == maxBlockCol) {
 				worldCol = 0;
@@ -61,7 +63,7 @@ public class Map {
 		}
 	}
 	public void update() {
-		
+		blockSizeDefault = core.kh.Mashab;
 	}
 	public void draw(Graphics2D g2) {
 		if(player != null) {
@@ -72,11 +74,11 @@ public class Map {
 				
 				int worldX = worldCol * blockSizeDefault;
 				int worldY = worldRow * blockSizeDefault;
-				int screenX = worldX - (int)player.worldX + (int)player.screenX;
-				int screenY = worldY - (int)player.worldY + (int)player.screenY;
+				int screenX = worldX - (int)player.worldX + player.screenX;
+				int screenY = worldY - (int)player.worldY + player.screenY;
 				
+//				g2.drawImage(tiles[worldCol][worldRow].texture.getTexture(), screenX, screenY,tiles[worldCol][worldRow].texture.width,tiles[worldCol][worldRow].texture.height,null);
 				g2.drawImage(tiles[worldCol][worldRow].texture.getTexture(), screenX, screenY,blockSizeDefault,blockSizeDefault,null);
-				
 				
 				worldCol++;
 				if(worldCol == maxBlockCol) {

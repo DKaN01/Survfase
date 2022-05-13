@@ -9,8 +9,8 @@ import javax.imageio.ImageIO;
 public class TextureManager {
 	public Texture playerTextureStop;
 	public Texture playerTextureRun;
-	public Texture wallMid;
-	BufferedImage wallMidBFI;
+	public Texture wallMid, floor_1;
+	BufferedImage wallMidBFI, floor_1BFI;
 	BufferedImage[] playerStop;
 	BufferedImage[] playerRun;
 	
@@ -33,11 +33,13 @@ public class TextureManager {
 			playerRun[3] = ImageIO.read(new File("res/frames/big_demon_run_anim_f3.png"));
 
 			wallMidBFI = ImageIO.read(new File("res/frames/wall_mid.png"));
+			floor_1BFI = ImageIO.read(new File("res/frames/floor_1.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		playerTextureStop = new Texture(16,16,playerStop);
-		playerTextureRun = new Texture(16,16,playerRun);
+		playerTextureStop = new Texture(32,36,playerStop);
+		playerTextureRun = new Texture(32,36,playerRun);
 		wallMid = new Texture(16,16,wallMidBFI);
+		floor_1 = new Texture(16,16,floor_1BFI);
 	}
 }

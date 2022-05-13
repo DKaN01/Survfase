@@ -20,7 +20,7 @@ public class Core {
 		this.panel = panel;
 		this.tm = new TextureManager();
 		this.kh = kh;
-		this.map = new Map(tm);
+		this.map = new Map(tm, this);
 		this.em = new EntityManager(map, panel, this, kh, tm);
 		this.ui = new Ui(this);
 		map.setPlayer(em.player);
@@ -34,6 +34,7 @@ public class Core {
 	}
 	void update() {
 		em.update();
+		map.update();
 	}
 	
 	void game() {
