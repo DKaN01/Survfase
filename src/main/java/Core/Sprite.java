@@ -7,7 +7,6 @@ public class Sprite {
 	public float screenX, screenY;
 	public float worldX, worldY;
 	public Texture texture;
-	public Rectangle rect;
 	public Thread updaterFrame;
 	private int mirror = 1;
 	public int needMirror = 1;
@@ -51,6 +50,17 @@ public class Sprite {
 		this.updaterFrame = new Thread(this::updater);
 		updaterFrame.start();
 	}
+
+
+
+
+    public Rectangle getBounds()
+    {
+        return new Rectangle((int)worldX,(int)worldY,texture.width,texture.height);
+    }
+
+
+
 	private void updater()
 	{
 		while(this != null)

@@ -1,3 +1,11 @@
-# Surfase
+![LOGO](res/frames/big_demon_idle_anim_f0.png)
+![LOGO](res/frames/big_demon_idle_anim_f1.png)
+![LOGO](res/frames/big_demon_idle_anim_f2.png)
+![LOGO](res/frames/big_demon_idle_anim_f3.png)
 
-## This game using default java(openjdk 17)
+###See [GITFLICK]()
+####If you want
+
+
+`info:`\
+_JDK_: `openjdk17`

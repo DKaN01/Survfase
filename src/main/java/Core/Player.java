@@ -1,11 +1,16 @@
 package Core;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player {
     Keyhandler kh;
     Core core;
     Texture stop, run;
+
+
+
+
     boolean playerRunner = false;
     public float speed = 3f;
     public float worldX = 400, worldY = 400;
@@ -15,6 +20,10 @@ public class Player {
     public int needMirror = 1;
     public Thread updaterFrame;
 
+
+
+
+
     public Player(Core core, Texture stop, Texture run)
     {
         this.core = core;
@@ -22,6 +31,10 @@ public class Player {
         this.run = run;
         this.stop = stop;
     }
+
+
+
+
     private void move()
     {
         if(kh.moveUp) {
@@ -43,16 +56,31 @@ public class Player {
             playerRunner = true;
         }
     }
+
+
+
+
     public void update()
     {
         if(kh.moveUp || kh.moveDown || kh.moveLeft || kh.moveRight)move();
         else playerRunner = false;
         speed = kh.playerSpeed;
     }
+
+
+
+
     public void moveWorld(float x, float y) {
         worldX += x;
         worldY += y;
     }
+
+
+    public Rectangle getBounds()
+    {
+        return new Rectangle((int)worldX,(int)worldY,stop.width,stop.height);
+    }
+
     public BufferedImage getImage()
     {
         if(playerRunner)
@@ -62,14 +90,22 @@ public class Player {
         }
         else return stop.getTexture();
     }
+
+
+
+
     public void startUpdaterFrame()
     {
         this.updaterFrame = new Thread(this::updater);
         updaterFrame.start();
     }
+
+
+
+
     private void updater()
     {
-        while(this != null)
+        while(updaterFrame != null)
         {
             stop.updateFrame();
             run.updateFrame();
@@ -80,4 +116,8 @@ public class Player {
             }
         }
     }
+
+
+
+
 }

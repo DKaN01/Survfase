@@ -12,6 +12,9 @@ public class Core {
 	public Map map;
 	public Ui ui;
 	public TextureManager tm;
+    public String gameState = "play";
+    public int zombies = 0;
+    public Object sync = new Object();
 	
 	boolean game = true;
 	

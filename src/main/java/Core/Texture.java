@@ -8,6 +8,10 @@ public class Texture {
 	public BufferedImage[] textures;
 	public int frame = 0;
 
+
+
+
+
 	public Texture(int width, int height, BufferedImage texture) {
 		this.width = width;
 		this.height = height;
@@ -19,14 +23,26 @@ public class Texture {
 		this.textures = textures;
 	}
 
+
+
+
+
 	public void updateFrame()
 	{
 		if(frame < textures.length - 1)frame++;
 		else frame = 0;
 	}
+
+
+
+
 	public BufferedImage getTexture()
 	{
 		if(textures != null) return textures[frame];
 		else return texture;
 	}
+
+
+
+
 }
