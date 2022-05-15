@@ -30,9 +30,10 @@ public class Core {
 		
 		setupGame();
 	}
-	
+
 	void setupGame() {
 		panel.setCore(this);
+        map.addTilesColusion();
 		game();
 	}
 	void update() {

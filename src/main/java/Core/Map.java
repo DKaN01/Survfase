@@ -6,10 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import org.json.simple.*;
 
 public class Map {
     HashMap<Integer, Sprite> types;
-	Sprite[][] tiles;
+    ArrayList<Tile> tiles;
 	Player player;
 	Core core;
 	
@@ -20,7 +21,7 @@ public class Map {
 	public Map(TextureManager tm, Core core) {
 		this.core = core;
         types = new HashMap<>();
-        tiles = new Sprite[maxBlockCol][maxBlockRow];
+        tiles = new ArrayList<>();
 
 
         types.put(0,new Sprite(tm.floor_1));
@@ -41,7 +42,6 @@ public class Map {
 		try {
 			br = new BufferedReader(new FileReader("res/map1.txt"));
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -58,7 +58,8 @@ public class Map {
             while(worldCol < maxBlockCol) {
             	String[] numbers = line.split(" ");
                 int num = Integer.parseInt(numbers[worldCol]);
-				tiles[worldCol][worldRow] = types.get(num);
+                boolean canColusion = num == 1;
+                tiles.add(new Tile(types.get(num).texture, blockSizeDefault * worldCol, blockSizeDefault * worldRow, canColusion));
                 worldCol++;
             }
 			if(worldCol == maxBlockCol) {
@@ -67,30 +68,25 @@ public class Map {
 			}
 		}
 	}
+    public void addTilesColusion()
+    {
+        for(Tile tile: tiles)if(tile.canColision)core.em.player.addTileColusion(tile);
+    }
 	public void update() {
 		blockSizeDefault = core.kh.Mashab;
 	}
 	public void draw(Graphics2D g2) {
 		if(player != null) {
 
-            int worldCol = 0;
-            int worldRow = 0;
+            for(Tile tile: tiles)
+            {
+                int worldX = tile.worldX;
+                int worldY = tile.worldY;
+                int screenX = worldX - (int)player.worldX + player.screenX;
+                int screenY = worldY - (int)player.worldY + player.screenY;
 
-			while(worldCol < maxBlockCol && worldRow < maxBlockRow) {
-				
-				int worldX = worldCol * blockSizeDefault;
-				int worldY = worldRow * blockSizeDefault;
-				int screenX = worldX - (int)player.worldX + player.screenX;
-				int screenY = worldY - (int)player.worldY + player.screenY;
-
-				g2.drawImage(tiles[worldCol][worldRow].texture.getTexture(), screenX, screenY,blockSizeDefault,blockSizeDefault,null);
-				
-				worldCol++;
-				if(worldCol == maxBlockCol) {
-					worldCol = 0;
-					worldRow++;
-				}
-			}
+                g2.drawImage(tile.texture.getTexture(), screenX, screenY,blockSizeDefault,blockSizeDefault,null);
+            }
 		}
 	}
 }

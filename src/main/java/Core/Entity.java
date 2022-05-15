@@ -65,7 +65,7 @@ public class Entity{
                 textureI.updateFrame();
                 textureR.updateFrame();
                 try{
-                    Thread.sleep(200);
+                    Thread.sleep(100);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }
