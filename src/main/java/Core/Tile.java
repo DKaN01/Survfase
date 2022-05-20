@@ -15,7 +15,7 @@ public class Tile{
         this.worldX = worldX;
         this.worldY = worldY;
     }
-    public Rectangle getBoundse()
+    public Rectangle getBounds()
     {
         return new Rectangle(worldX,worldY,texture.width,texture.height);
     }

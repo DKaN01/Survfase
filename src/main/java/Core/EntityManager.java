@@ -62,7 +62,7 @@ public class EntityManager {
             {
                 zomb.screenX = (int)zomb.worldX - (int)player.worldX + player.screenX;
                 zomb.screenY = (int)zomb.worldY - (int)player.worldY + player.screenY;
-                if(player.getBounds().intersects(zomb.getBounds()))zombies.remove(zomb);
+                if(player.getBounds((int)player.worldX,(int)player.worldY,player.width, player.height).intersects(zomb.getBounds()))zombies.remove(zomb);
             }
         }
         catch(Exception ex){}
