@@ -18,8 +18,7 @@ public class Player {
     public int needMirror = 1;
     public Thread updaterFrame;
     public ArrayList<Tile> tilesColusion;
-    public boolean board = false;
-    int step = 0;
+    public boolean stopColusionWithBlock = false;
 
 
     public Player(Core core, Texture stop, Texture run)
@@ -34,50 +33,53 @@ public class Player {
     {
         tilesColusion.add(tile);
     }
-    public void jump()
-    {
-        if(step != 5)
-        {
-            if(step == 0){
-                board = false;
-                moveWorld(0,6);
-                step++;
-            }
-            else {
-                board = false;
-                moveWorld(0,4);
-                step++;
-            }
-        }
-    }
     private void move()
     {
+        if(kh.moveUp) {
+            if(!stopColusionWithBlock){
+                moveWorld(0, -0.5f * speed);
+                playerRunner = true;
+            }
+            else moveWorld(0,10.5f);
+        }
         if(kh.moveLeft) {
-            moveWorld(-0.5f * speed, 0);
-            needMirror = -1;
-            playerRunner = true;
+            if(!stopColusionWithBlock){
+                moveWorld(-0.5f * speed, 0);
+                needMirror = -1;
+                playerRunner = true;
+            }
+            else moveWorld(10.5f,0);
         }
         if(kh.moveRight) {
-            moveWorld(0.5f * speed, 0);
-            needMirror = 1;
-            playerRunner = true;
+            if(!stopColusionWithBlock){
+                moveWorld(0.5f * speed, 0);
+                needMirror = 1;
+                playerRunner = true;
+            }
+            else moveWorld(-10.5f,0);
         }
-        if(kh.spacePress && board){
-            jump();
+        if(kh.moveDown) {
+            if(!stopColusionWithBlock){
+                moveWorld(0, 0.5f*speed);
+                playerRunner = true;
+            }
+            else moveWorld(0,-10.5f);
         }
     }
 
     public void update()
     {
-        if(step > 5)step = 0;
-        if(!board)moveWorld(0.f,5.5f);
         for(Tile tile: tilesColusion)
         {
-            if(getBounds().intersects(tile.getBoundse()))board = true;
+            if(getBounds().intersects(tile.getBoundse())){
+                stopColusionWithBlock = true;
+                System.out.println("Colusion detect");
+            }
         }
-        if(kh.moveLeft || kh.moveRight || kh.spacePress)move();
+        if(kh.moveUp || kh.moveDown || kh.moveLeft || kh.moveRight)move();
         else playerRunner = false;
         speed = kh.playerSpeed;
+        stopColusionWithBlock = false;
     }
 
     public void moveWorld(float x, float y) {
@@ -87,7 +89,7 @@ public class Player {
 
     public Rectangle getBounds()
     {
-        return new Rectangle((int)worldX-2,(int)worldY-2,stop.width+2,stop.height+2);
+        return new Rectangle((int)worldX,(int)worldY,stop.width,stop.height);
     }
 
     public BufferedImage getImage()

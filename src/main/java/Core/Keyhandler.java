@@ -8,7 +8,6 @@ public class Keyhandler implements KeyListener{
 	public boolean debug = false;
 	public float playerSpeed = 1f;
 	public int Mashab;
-    public boolean spacePress = false;
 	
 	
 	public Keyhandler() {}
@@ -31,7 +30,6 @@ public class Keyhandler implements KeyListener{
 		if(code == KeyEvent.VK_NUMPAD6)playerSpeed--;
 		if(code == KeyEvent.VK_NUMPAD5)Mashab++;
 		if(code == KeyEvent.VK_NUMPAD2)Mashab--;
-        if(code == KeyEvent.VK_SPACE)spacePress = true;
 	}
 
 	@Override
@@ -41,7 +39,6 @@ public class Keyhandler implements KeyListener{
 		if(code == KeyEvent.VK_S)moveDown = false;
 		if(code == KeyEvent.VK_A)moveLeft = false;
 		if(code == KeyEvent.VK_D)moveRight = false;
-        if(code == KeyEvent.VK_SPACE)spacePress = false;
 	}
 
 }
